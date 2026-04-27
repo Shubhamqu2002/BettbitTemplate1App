@@ -6,24 +6,36 @@ import '../livetabcomponents/live_trending_games_section.dart';
 class LiveTabPage extends StatelessWidget {
   const LiveTabPage({super.key});
 
+  static const double _bottomSpacingFactor = 0.08;
+
+  static const List<String> _sections = [
+    'Trending Games',
+    'Slot Games',
+    'Table Games',
+    'Casino Games',
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+    final bottomSpacing =
+        MediaQuery.sizeOf(context).height * _bottomSpacingFactor;
 
-    return ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        const LiveCasinoHeader(),
-        const LiveSearchFilter(),
-        const LiveTrendingGamesSection(),
-        const LiveTrendingGamesSection(title: 'Slot Games'),
-        const LiveTrendingGamesSection(title: 'Table Games'),
-        const LiveTrendingGamesSection(title: 'Casino Games'),
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.only(bottom: bottomSpacing),
+        children: [
+          const LiveCasinoHeader(),
+          const LiveSearchFilter(),
 
-
-        /// ✅ Bottom spacing (5% of screen height)
-        SizedBox(height: screenHeight * 0.08),
-      ],
+          /// Dynamic sections (scalable)
+          ..._sections.map(
+            (title) => LiveTrendingGamesSection(title: title),
+          ),
+        ],
+      ),
     );
   }
 }

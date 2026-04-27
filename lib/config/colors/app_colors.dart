@@ -18,6 +18,8 @@ class AppColors {
   static const Color textSecondary = Color(0xFF8D869A);
   static const Color textHint = Color(0xFF5E5867);
 
+  static const Color cardBg = Color(0xFF1E1F26);
+
   static const Color cardBorder = Color(0xFF23172D);
   static const Color cardFill = Color(0x1AFFFFFF);
 
@@ -29,8 +31,9 @@ class AppColors {
 
   static const Color socialButtonFill = Color(0xFF1A1321);
   static const Color socialButtonBorder = Color(0xFF2C2333);
+  static const Color menuBackground = Color(0xFF1A0B2E);
 
-  static const Color bottomTabBackground = Color(0xE61A0B2E);
+  static const Color bottomTabBackground = Color(0xFF1A0B2E);
   static const Color bottomTabInactive = Color(0xFF9CA3AF);
   static const Color searchGradientStart = Color(0xFFBD44FF);
   static const Color searchGradientEnd = Color(0xFF4F46E5);
@@ -55,6 +58,7 @@ class AppColors {
 
   static const Color vipGradientStart = Color(0xFFFFC700);
   static const Color vipGradientEnd = Color(0xFFFF9500);
+  static const Color yellowButton = Color(0xFFFFAB00);
   static const Color vipSubtext = Color(0xCC08010F);
   static const Color vipOverlay = Color(0x14FFFFFF);
 
@@ -62,6 +66,28 @@ class AppColors {
   static const Color searchModalChipBackground = Color(0x802D1B4E);
   static const Color searchModalInputBorder = Color(0xFF6A42F4);
   static const Color searchModalDivider = Color(0xFF2B1847);
+
+  static const Color walletCardBackground = Color(0xFF15161C);
+  static const Color walletCardBorder = Color(0xFF2A2B35);
+  static const Color withdrawButtonBackground = Color(0xFF00E676);
+
+  static const Color depositIconBg = Color(0x33D500F9);
+  static const Color withdrawIconBg = Color(0x3300E676);
+  static const Color netActivityIconBg = Color(0x33FFAB00);
+
+  static const Color transactionDivider = Color(0xFF272832);
+
+  static const Color exportButtonBg = Color(0x1AD926FF);
+  static const Color exportButtonBorder = Color(0x80D926FF);
+
+  static const Color depositBadgeBg = Color(0x3300E676);
+  static const Color depositBadgeBorder = Color(0x6600E676);
+
+  static const Color withdrawalBadgeBg = Color(0x33FFAB00);
+  static const Color withdrawalBadgeBorder = Color(0x66FFAB00);
+
+  static const Color paginationBg = Color(0xFF1E1F26);
+  static const Color paginationActiveBg = Color(0xFFD926FF);
 
   static const LinearGradient primaryGradient = LinearGradient(
     colors: [primaryGradientStart, primaryGradientEnd],

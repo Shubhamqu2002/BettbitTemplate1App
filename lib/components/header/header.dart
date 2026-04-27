@@ -23,52 +23,61 @@ class Header extends StatelessWidget {
       child: SafeArea(
         bottom: false,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // 🔹 Left: Menu Icon
+            /// Left: Menu Icon
             GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: onMenuTap,
-              child: const Icon(
-                Icons.menu,
-                color: Colors.white,
-                size: 26,
+              child: const SizedBox(
+                width: 34,
+                height: 34,
+                child: Icon(
+                  Icons.menu,
+                  color: AppColors.white,
+                  size: 26,
+                ),
               ),
             ),
 
-            // 🔹 Center: Logo + Title (Shifted Right)
-            Padding(
-              padding: const EdgeInsets.only(left: 30), // 👈 only change
-              child: Row(
-                children: [
-                  Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.primaryGradient,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.casino,
-                        color: Colors.white,
-                        size: 16,
+            /// Center: Logo + Title
+            Expanded(
+              child: Center(
+                child: Transform.translate(
+                  offset: const Offset(18, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          gradient: AppColors.primaryGradient,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.casino,
+                            color: AppColors.white,
+                            size: 16,
+                          ),
+                        ),
                       ),
-                    ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        "MyCasino",
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 8),
-                  const Text(
-                    "MyCasino",
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
 
-            // 🔹 Right: Login/Register Button
+            /// Right: Login/Register Button
             SizedBox(
               width: 88,
               height: 34,
