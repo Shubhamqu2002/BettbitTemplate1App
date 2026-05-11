@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../config/colors/app_colors.dart';
 import 'trending_filter_modal.dart';
+import '../Subpages/GamePage/game_page.dart';
 
 class TrendingGamesSection extends StatelessWidget {
   const TrendingGamesSection({super.key});
@@ -79,6 +80,18 @@ class TrendingGamesSection extends StatelessWidget {
                         rating: game.rating,
                         imagePath: game.imagePath,
                         isNew: game.isNew,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => GamePage(
+                                gameTitle: game.title,
+                                provider: game.provider,
+                                imagePath: game.imagePath,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   );
@@ -117,7 +130,7 @@ class TrendingGameCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: onTap,
-        child: Container(
+        child: Ink(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: AppColors.bottomTabBackground,
@@ -126,98 +139,100 @@ class TrendingGameCard extends StatelessWidget {
               width: 1,
             ),
           ),
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: Image.asset(
-                        imagePath,
-                        fit: BoxFit.cover,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: Image.asset(
+                          imagePath,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    if (isNew)
-                      Positioned(
-                        top: 10,
-                        left: 10,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 11,
-                            vertical: 5,
+                      if (isNew)
+                        Positioned(
+                          top: 10,
+                          left: 10,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 11,
+                              vertical: 5,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.jackpotYellow,
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            child: const Text(
+                              'NEW',
+                              style: TextStyle(
+                                color: AppColors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
                           ),
-                          decoration: BoxDecoration(
+                        ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  color: AppColors.bottomTabBackground,
+                  padding: const EdgeInsets.fromLTRB(16, 13, 14, 13),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: AppColors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 7),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              provider,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: AppColors.bottomTabInactive,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          const Icon(
+                            Icons.star_rounded,
                             color: AppColors.jackpotYellow,
-                            borderRadius: BorderRadius.circular(7),
+                            size: 17,
                           ),
-                          child: const Text(
-                            'NEW',
-                            style: TextStyle(
-                              color: AppColors.black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                color: AppColors.bottomTabBackground,
-                padding: const EdgeInsets.fromLTRB(16, 13, 14, 13),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: AppColors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 7),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            provider,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          const SizedBox(width: 4),
+                          Text(
+                            rating,
                             style: const TextStyle(
-                              color: AppColors.bottomTabInactive,
+                              color: AppColors.white,
                               fontSize: 14,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Icon(
-                          Icons.star_rounded,
-                          color: AppColors.jackpotYellow,
-                          size: 17,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          rating,
-                          style: const TextStyle(
-                            color: AppColors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

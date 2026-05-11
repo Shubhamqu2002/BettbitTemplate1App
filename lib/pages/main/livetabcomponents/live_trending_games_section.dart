@@ -3,10 +3,14 @@ import '../../../../config/colors/app_colors.dart';
 
 class LiveTrendingGamesSection extends StatelessWidget {
   final String title;
+  final IconData? titleIcon;
+  final Color? titleIconColor;
 
   const LiveTrendingGamesSection({
     super.key,
     this.title = 'Trending Games',
+    this.titleIcon,
+    this.titleIconColor,
   });
 
   @override
@@ -29,13 +33,25 @@ class LiveTrendingGamesSection extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: AppColors.white,
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-              ),
+            child: Row(
+              children: [
+                if (titleIcon != null) ...[
+                  Icon(
+                    titleIcon,
+                    color: titleIconColor ?? AppColors.jackpotYellow,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 7),
+                ],
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: AppColors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 16),

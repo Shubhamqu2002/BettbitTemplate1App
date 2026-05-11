@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../config/colors/app_colors.dart';
+import '../../pages/main/Subpages/GameAnalytics/game_analytics.dart';
+import '../../pages/main/Subpages/MyBets/my_bets.dart';
+import '../../pages/main/Subpages/Promotion/my_promotion.dart';
 
 class HamburgerMenu extends StatelessWidget {
   final VoidCallback onClose;
@@ -25,6 +28,39 @@ class HamburgerMenu extends StatelessWidget {
     MenuItemModel(title: 'Support', icon: Icons.headset_mic_rounded),
     MenuItemModel(title: 'Terms & Conditions', icon: Icons.description_rounded),
   ];
+
+  void _handleMenuTap(BuildContext context, MenuItemModel item) {
+    onClose();
+
+    if (item.title == 'Game Analytics') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => const GameAnalyticsPage(),
+        ),
+      );
+      return;
+    }
+
+    if (item.title == 'My Bets') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => const MyBetsPage(),
+        ),
+      );
+      return;
+    }
+
+    if (item.title == 'My Promotions') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => const MyPromotionPage(),
+        ),
+      );
+      return;
+    }
+
+    onItemTap?.call(item);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +109,6 @@ class HamburgerMenu extends StatelessWidget {
                           color: AppColors.divider,
                         ),
                         const SizedBox(height: 18),
-
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Column(
@@ -81,15 +116,13 @@ class HamburgerMenu extends StatelessWidget {
                               for (int i = 0; i < _menuItems.length; i++) ...[
                                 _MenuTile(
                                   item: _menuItems[i],
-                                  onTap: () => onItemTap?.call(_menuItems[i]),
+                                  onTap: () =>
+                                      _handleMenuTap(context, _menuItems[i]),
                                 ),
                                 if (i != _menuItems.length - 1)
                                   const SizedBox(height: 18),
                               ],
-
-                              /// Balanced gap after Terms & Conditions
                               const SizedBox(height: 28),
-
                               _LogoutButton(
                                 onTap: onLogoutTap ?? onClose,
                               ),
