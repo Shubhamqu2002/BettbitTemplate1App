@@ -3,6 +3,7 @@ import '../../config/colors/app_colors.dart';
 import '../../pages/main/Subpages/GameAnalytics/game_analytics.dart';
 import '../../pages/main/Subpages/MyBets/my_bets.dart';
 import '../../pages/main/Subpages/Promotion/my_promotion.dart';
+import '../../pages/main/Subpages/MyFavourite/my_favourite.dart';
 
 class HamburgerMenu extends StatelessWidget {
   final VoidCallback onClose;
@@ -22,7 +23,7 @@ class HamburgerMenu extends StatelessWidget {
     MenuItemModel(title: 'Loyalty tracking', icon: Icons.local_offer_rounded),
     MenuItemModel(title: 'My Promotions', icon: Icons.percent_rounded),
     MenuItemModel(title: 'My Reviews', icon: Icons.rate_review_rounded),
-    MenuItemModel(title: 'My Favorites', icon: Icons.favorite_rounded),
+    MenuItemModel(title: 'My Favourites', icon: Icons.favorite_rounded),
     MenuItemModel(title: 'Security', icon: Icons.shield_rounded),
     MenuItemModel(title: 'Settings', icon: Icons.settings_rounded),
     MenuItemModel(title: 'Support', icon: Icons.headset_mic_rounded),
@@ -30,36 +31,59 @@ class HamburgerMenu extends StatelessWidget {
   ];
 
   void _handleMenuTap(BuildContext context, MenuItemModel item) {
+    Widget? page;
+
+    switch (item.title) {
+      case 'Game Analytics':
+        page = const GameAnalyticsPage();
+        break;
+      case 'My Bets':
+        page = const MyBetsPage();
+        break;
+      case 'My Promotions':
+        page = const MyPromotionPage();
+        break;
+      case 'My Favourites':
+        page = const MyFavouritePage();
+        break;
+      default:
+        onClose();
+        onItemTap?.call(item);
+        return;
+    }
+
+    final navigator = Navigator.of(context);
+
     onClose();
 
-    if (item.title == 'Game Analytics') {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => const GameAnalyticsPage(),
-        ),
-      );
-      return;
-    }
+    Future.delayed(const Duration(milliseconds: 120), () {
+      navigator.push(_smoothRoute(page!));
+    });
+  }
 
-    if (item.title == 'My Bets') {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => const MyBetsPage(),
-        ),
-      );
-      return;
-    }
+  PageRouteBuilder _smoothRoute(Widget page) {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 260),
+      reverseTransitionDuration: const Duration(milliseconds: 220),
+      pageBuilder: (_, __, ___) => page,
+      transitionsBuilder: (_, animation, __, child) {
+        final curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOutCubic,
+        );
 
-    if (item.title == 'My Promotions') {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => const MyPromotionPage(),
-        ),
-      );
-      return;
-    }
-
-    onItemTap?.call(item);
+        return FadeTransition(
+          opacity: curvedAnimation,
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0.04, 0),
+              end: Offset.zero,
+            ).animate(curvedAnimation),
+            child: child,
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -235,6 +259,8 @@ class _MenuTile extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(14),
+        splashColor: AppColors.searchGradientStart.withOpacity(0.12),
+        highlightColor: AppColors.searchGradientStart.withOpacity(0.08),
         child: SizedBox(
           height: 43,
           child: Row(

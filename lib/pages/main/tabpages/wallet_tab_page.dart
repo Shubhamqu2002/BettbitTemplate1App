@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../paymentpage/payment_page.dart';
 import '../wallettabcomponent/bonus_balance_card.dart';
 import '../wallettabcomponent/financial_summary_card.dart';
 import '../wallettabcomponent/real_money_balance_card.dart';
@@ -29,15 +31,31 @@ class WalletTabPage extends StatelessWidget {
             balance: '\$1,250.75',
             onWithdrawTap: () {},
           ),
+
           const SizedBox(height: _sectionGap),
+
           BonusBalanceCard(
             balance: '\$50.00',
-            onDepositTap: () {},
+
+            // ✅ Navigation added here
+            onDepositTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PaymentPage(),
+                ),
+              );
+            },
           ),
+
           const SizedBox(height: _sectionGap),
+
           const FinancialSummaryCard(),
+
           const SizedBox(height: _sectionGap),
+
           const TransactionHistoryCard(),
+
           const SizedBox(height: _sectionGap),
         ],
       ),
